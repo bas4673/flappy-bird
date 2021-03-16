@@ -4,16 +4,13 @@ input.onButtonPressed(Button.A, function () {
 input.onButtonPressed(Button.B, function () {
     sprite.change(LedSpriteProperty.Y, 1)
 })
+let score = 0
 let empty_obstacles = 0
 let ticks = 0
-let random = 0
 let sprite: game.LedSprite = null
 let obstacles: game.LedSprite[] = []
 sprite = game.createSprite(0, 2)
 sprite.set(LedSpriteProperty.Blink, 300)
-basic.forever(function () {
-    random = randint(0, 3)
-})
 basic.forever(function () {
     while (obstacles.length > 0 && obstacles[0].get(LedSpriteProperty.X) == 0) {
         obstacles.removeAt(0).delete()
@@ -29,11 +26,15 @@ basic.forever(function () {
             }
         }
     }
-    for (let obstacle of obstacles) {
-        if (obstacle.get(LedSpriteProperty.X) == sprite.get(LedSpriteProperty.X) && obstacle.get(LedSpriteProperty.Y) == sprite.get(LedSpriteProperty.Y)) {
+    for (let obstacle2 of obstacles) {
+        if (obstacle2.get(LedSpriteProperty.X) == sprite.get(LedSpriteProperty.X) && obstacle2.get(LedSpriteProperty.Y) == sprite.get(LedSpriteProperty.Y)) {
+            basic.showNumber(score)
+            basic.showNumber(score)
+            basic.showNumber(score)
             game.gameOver()
         }
     }
     ticks += 1
-    basic.pause(1000)
+    score += 1
+    basic.pause(1000 - ticks * 10)
 })
